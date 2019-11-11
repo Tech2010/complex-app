@@ -3,23 +3,23 @@ services:
   - docker
 
 before_install:
-  - docker build -t ygumenjuk/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t rayzol/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true ygumenjuk/react-test npm test
+  - docker run -e CI=true rayzol/react-test npm test
 
-#after_success:
-#  - docker build -t ygumenjuk/multi-client ./client
-#  - docker build -t ygumenjuk/multi-nginx ./nginx
-#  - docker build -t ygumenjuk/multi-server ./server
-#  - docker build -t ygumenjuk/multi-worker ./worker
-#  # Log in to the docker CLI
-#  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-#  # Take those images and push them to docker hub
-#  - docker push ygumenjuk/multi-client
-#  - docker push ygumenjuk/multi-nginx
-#  - docker push ygumenjuk/multi-server
-#  - docker push ygumenjuk/multi-worker
+after_success:
+ - docker build -t rayzol/multi-client ./client
+ - docker build -t rayzol/multi-nginx ./nginx
+ - docker build -t rayzol/multi-server ./server
+ - docker build -t rayzol/multi-worker ./worker
+ # Log in to the docker CLI
+ - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+ # Take those images and push them to docker hub
+ - docker push rayzol/multi-client
+ - docker push rayzol/multi-nginx
+ - docker push rayzol/multi-server
+ - docker push rayzol/multi-worker
 #
 #deploy:
 #  provider: elasticbeanstalk
